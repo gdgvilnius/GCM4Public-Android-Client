@@ -6,10 +6,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
 
+/**
+ * This is a demo application of GCM4Public open-source project.<br/>
+ * <br/>
+ * How to create this application, please visit http://www.andro.lt/2012/11/google-cloud-messaging-for-android.html
+ * or the project's page: gcm4public.appspot.com
+ * @author Vilius Kraujutis viliusk@gmail.com
+ *
+ */
 public class MainActivity extends Activity {
 
 	private static final String TAG = MainActivity.class.getSimpleName();
@@ -35,9 +44,6 @@ public class MainActivity extends Activity {
 				startActivity(new Intent(Intent.ACTION_VIEW, uri));
 			}
 		}
-		// new AsyncTask<Void, Void, Void>() {
-		// @Override
-		// protected Void doInBackground(Void... params) {
 		GCMRegistrar.checkDevice(MainActivity.this);
 		GCMRegistrar.checkManifest(MainActivity.this);
 		final String regId = GCMRegistrar.getRegistrationId(MainActivity.this);
@@ -46,15 +52,6 @@ public class MainActivity extends Activity {
 		} else {
 			Log.v(TAG, "Already registered: " + regId);
 		}
-		// return null;
-		// }
-		// }.execute();
-		// }.executeOnExecutor(new Executor() {
-		// @Override
-		// public void execute(Runnable command) {
-		// new Thread(command).start();
-		// }
-		// });
 	}
 
 	@Override
@@ -62,6 +59,11 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
+	}
+
+	public void openUrl(View v) {
+		Uri uri = Uri.parse("https://gcm4public.appspot.com");
+		startActivity(new Intent(Intent.ACTION_VIEW, uri));
 	}
 
 }

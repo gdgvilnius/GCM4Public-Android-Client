@@ -2,7 +2,6 @@ package lt.andro.gcm4public;
 
 import java.io.IOException;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -19,6 +18,20 @@ import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
 
+/**
+ * Intent which is handling GCM messages and registrations. <br/>
+ * <br/>
+ * {@link GCMIntentService#onMessage} will handle message from GCM4Public server
+ * - show up a notification and vibrate the phone.
+ * {@link GCMIntentService#onRegistered} will send the registrationId and
+ * SENDER_ID constant to the server.<br/>
+ * <br/>
+ * In order this class to work, don't forget to copy the gcm.jar file to libs
+ * folder.
+ * 
+ * @author Vilius Kraujutis
+ * @since 2012-12-01
+ */
 public class GCMIntentService extends GCMBaseIntentService {
 
 	@Override
@@ -84,6 +97,14 @@ public class GCMIntentService extends GCMBaseIntentService {
 		registerGCMClient(registrationId, MainActivity.SENDER_ID);
 	}
 
+	/**
+	 * This is called when application first time registers for the GCM.<br/>
+	 * <br/>
+	 * This method registers on the opensource GCM4Public server
+	 * 
+	 * @param registrationId
+	 * @param senderId
+	 */
 	private void registerGCMClient(String registrationId, String senderId) {
 		String url = "http://gcm4public.appspot.com/registergcmclient?senderId="
 				+ senderId + "&registrationId=" + registrationId;
@@ -100,24 +121,9 @@ public class GCMIntentService extends GCMBaseIntentService {
 	}
 
 	@Override
-	protected void onUnregistered(Context arg0, String registrationId) {
-		// TODO needs implementation
-	}
+	protected void onUnregistered(Context arg0, String arg1) {
+		// TODO Auto-generated method stub
 
-	// private void unregisterGCMClient(String registrationId) {
-	// String url =
-	// "http://gcm4public.appspot.com/unregistergcmclient?registrationId="
-	// + registrationId;
-	// Log.d(TAG, url);
-	// DefaultHttpClient httpclient = new DefaultHttpClient();
-	// HttpGet httpget = new HttpGet(url);
-	// try {
-	// httpclient.execute(httpget);
-	// } catch (ClientProtocolException e) {
-	// e.printStackTrace();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// }
+	}
 
 }
