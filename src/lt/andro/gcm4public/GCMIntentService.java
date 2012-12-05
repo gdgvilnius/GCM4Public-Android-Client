@@ -23,8 +23,8 @@ import com.google.android.gcm.GCMRegistrar;
 /**
  * Intent which is handling GCM messages and registrations. <br/>
  * <br/>
- * {@link GCM4PublicIntentService#onMessage} will handle message from GCM4Public server - show up a
- * notification and vibrate the phone. {@link GCM4PublicIntentService#onRegistered} will send the
+ * {@link GCMIntentService#onMessage} will handle message from GCM4Public server - show up a
+ * notification and vibrate the phone. {@link GCMIntentService#onRegistered} will send the
  * registrationId and SENDER_ID constant to the server.<br/>
  * <br/>
  * In order this class to work, don't forget to copy the gcm.jar file to libs folder.
@@ -32,7 +32,7 @@ import com.google.android.gcm.GCMRegistrar;
  * @author Vilius Kraujutis
  * @since 2012-12-01
  */
-public class GCM4PublicIntentService extends GCMBaseIntentService {
+public class GCMIntentService extends GCMBaseIntentService {
     protected static final String SENDER_ID = "716163315987";
 
     @Override
@@ -94,7 +94,8 @@ public class GCM4PublicIntentService extends GCMBaseIntentService {
     protected void onRegistered(Context arg0, String registrationId) {
         // registrationId is something like this:
         // APA91bH6fqNq7-MmMdDaQLcegqa8vbqoPXcvqwso_owIFaUR794cl0gmRJr3n_nQEPqUwfR_HvxERUgQvVKXPN3HQoTt5_k8BMmeeWunKHsg8dBCxvMcIM0K6YndMX2DU4ne3STyOFRJjkeBynXL19yy7Dqn53UbNA
-        registerGCMClient(registrationId, GCM4PublicDemoActivity.SENDER_ID);
+        Log.d(TAG, "onRegistered: " + registrationId);
+        registerGCMClient(registrationId, SENDER_ID);
     }
 
     /**

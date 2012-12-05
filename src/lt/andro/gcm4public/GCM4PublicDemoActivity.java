@@ -26,6 +26,13 @@ public class GCM4PublicDemoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        useExtras();
+
+        GCMIntentService.registerAtGCM(this);
+    }
+
+    private void useExtras() {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String title = extras.getString("title");
@@ -41,7 +48,6 @@ public class GCM4PublicDemoActivity extends Activity {
                 startActivity(new Intent(Intent.ACTION_VIEW, uri));
             }
         }
-        GCM4PublicIntentService.registerAtGCM(this);
     }
 
     @Override
