@@ -5,12 +5,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
-
-import com.google.android.gcm.GCMRegistrar;
 
 /**
  * This is a demo application of GCM4Public open-source project.<br/>
@@ -21,10 +18,9 @@ import com.google.android.gcm.GCMRegistrar;
  * 
  * @author Vilius Kraujutis viliusk@gmail.com
  */
-public class MainActivity extends Activity {
+public class GCM4PublicDemoActivity extends Activity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-    protected static final String SENDER_ID = "716163315987";
+    private static final String TAG = GCM4PublicDemoActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +41,7 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(Intent.ACTION_VIEW, uri));
             }
         }
-        registerAtGCM();
-    }
-
-    private void registerAtGCM() {
-        GCMRegistrar.checkDevice(MainActivity.this);
-        GCMRegistrar.checkManifest(MainActivity.this);
-        final String regId = GCMRegistrar.getRegistrationId(MainActivity.this);
-        if (regId.equals("")) {
-            GCMRegistrar.register(MainActivity.this, SENDER_ID);
-        } else {
-            Log.v(TAG, "Already registered: " + regId);
-        }
+        GCM4PublicIntentService.registerAtGCM(this);
     }
 
     @Override
